@@ -73,6 +73,13 @@ MastodonApi.prototype.listStatuses = function() {
 			// fix content link target
 			$('a', this.widget).attr('target', '_blank');
 		}
+		,error: function(d_) {
+			//console.log( d_ );
+			if(d_.responseJSON) {
+				$('.mt-header', mapi.widget).html('ERROR');
+				$('.mt-body', mapi.widget).html( '<div class="mt-error">' + d_.responseJSON.error + '</div>');
+			}
+		}
 	});
 
 
