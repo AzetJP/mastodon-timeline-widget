@@ -1,7 +1,11 @@
 /**
  * Mastodon User Timeline Widget
+ * Copyright (c) 2017 有限会社アゼット
+ * ライセンスに関して、LICENSEファイルを参照下さい。
+ * see license file for details.
  *
  * @author Azet <https://azet.jp>
+ * @version 1.0
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
  *    access_token    : widget's application access token (can be generated from http://azet.jp/mastodon-usertimeline-widget/)
@@ -9,6 +13,7 @@
  *    target_selector : HTML node selector (jquery/css style)
  */
 var MastodonApi = function(params_) {
+	this.build = 1;
 	
 	// endpoint access settings
 	this.INSTANCE_URI  = params_.instance_uri;

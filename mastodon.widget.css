@@ -1,3 +1,13 @@
+/**
+ * Mastodon User Timeline Widget
+ * Copyright (c) 2017 有限会社アゼット
+ * ライセンスに関して、LICENSEファイルを参照下さい。
+ * see license file for details.
+ *
+ * @author Azet <https://azet.jp>
+ * @version 1.0
+ */
+
 /* main container >>> */
 .mastodon-timeline {
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);

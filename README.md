@@ -1,20 +1,22 @@
+[English version](README_en.md)
 
-# Mastodon.widget
+# Mastodon.widgetについて
 
-The idea of this little script is to allow users to display their Mastodon timeline on their blog/website.
+このJSで作られたウィジェットは自分のホームページに自分のタイムラインを表示します。
 
-## Requirements
+## 要件
 
  - jQuery
- - access token from the mastodon instance you want to display the timeline from
+ - ステータスの表示したいマストドンのインスタンスのアクセストーケン
 
-To help you create a token, we'll soon provide a page on our website that will guide you through the requiered steps.
+設定がしやすい用に、ウィザードを作りましたので、よろしければご利用下さい。  
+[Azet.jpのマストドンウィジェットウィザード](https://azet.jp/mastodon.wizard/wizard_jp.html)
 
-## Installation
+## 設定
 
-1) Download the required files (only one JS and one CSS).
+1) 必要のファイルをダウンロードをして下さい(CSSファイルとJSファイルは1つずつ).
 
-2) Simply paste the code bellow in you website:
+2) 下記のコードをホームページに入れてください：
 
 
 	<link rel="stylesheet" href="mastodon.widget.css">
@@ -24,30 +26,31 @@ To help you create a token, we'll soon provide a page on our website that will g
 			// jQUERY is required!
 			var mapi = new MastodonApi({
 				target_selector  : '#myTimeline'
-				,instance_uri    : '[MASTODON INSTANCE]'
-				,access_token    : '[ACCESS TOKEN]'
-				,account_id      : '[ACCOUNT ID]'
+				,instance_uri    : '[マストドンのインスタンスURL]'
+				,access_token    : '[アクセス　トーケン]'
+				,account_id      : '[ユーザのアカウントID]'
 				// optional parameters
 				//,toots_limit     : 5
 			});
 		});
 	</script>
 
-In the sample above, you have to replace the folowing:
+以上のサンプルの中に、下記の情報を正しく設定して下さい：
 
- - [MASTODON INSTANCE] => i.e : https://mastodon.technology
- - [ACCESS TOKEN] => token you created for your app and linked with your Mastodon instance account
- - [ACCOUNT ID]   => your user ID on Mastodon instance
+ - [マストドンのインスタンスURL] => 例: https://mastodon.technology
+ - [アクセス　トーケン] => マストドンのインスタンスのアクセストーケン
+ - [ユーザのアカウントID]   => タイムラインの表示したいユーザのID
 
-3) Add a container for your timeline where you want in the body of your website:
+3) タイムラインの為に、DIVのコンテナを追加して下さい：
 
     <div id="myTimeline" class="mastodon-timeline mastodon-timeline-dark"></div>
 
-## Customization
+## カストマイズ
 
-You have the choice between 2 basic themes:
+以下の2つのテーマが用意されております：
 
  - mastodon-timeline-light
  - mastodon-timeline-dark
 
-Or you can create your own. Please have a look in the CSS file for more details.
+又は、オリジナルテーマ作成も可能です。詳しくはCSSファイルを参照下さい。
+
