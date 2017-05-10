@@ -72,7 +72,10 @@ MastodonApi.prototype.listStatuses = function() {
 					setHeaderUserLink.call(mapi, account);
 					setFooterLink.call(mapi, account);
 				}
-				appendStatus.call(mapi, data_[i]);
+				if(data_[i].visibility=='public') {
+					// list only public toots
+					appendStatus.call(mapi, data_[i]);
+				}
 			}
 
 			// fix content link target
