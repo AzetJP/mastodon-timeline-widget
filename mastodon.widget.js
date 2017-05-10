@@ -13,7 +13,7 @@
  *    target_selector : HTML node selector (jquery/css style)
  */
 var MastodonApi = function(params_) {
-	this.build = 1;
+	this.build = 2;
 	
 	// endpoint access settings
 	this.INSTANCE_URI  = params_.instance_uri;
@@ -28,6 +28,42 @@ var MastodonApi = function(params_) {
 	// build the basic widget
 	this.makeWidget();
 	this.listStatuses();
+
+	this.text = {
+		spoilerBtnClosed  : "Show more"
+		,spoilerBtnOpened : "Show less"
+	};
+
+	var me = this;
+
+	// spoiler toggle
+	// jQuery event handler
+	var toggleSpoiler = function(e_) {
+		e_.preventDefault();
+
+		// btn text
+		if( $(this).hasClass('spoiler-opened') ) {
+			$(this).text(me.text.spoilerBtnClosed);
+		}
+		else {
+			$(this).text(me.text.spoilerBtnOpened);
+		}
+		$(this).toggleClass('spoiler-opened');
+
+		// open body
+		$(this).parent().next('.spoiler-body').toggle();
+
+	};
+
+	// spoiler buttons events
+	this.widget.on('click', '.btn-spoiler', toggleSpoiler);
+
+}
+
+/**
+ * texts
+ */
+MastodonApi.prototype.text = {
 }
 
 
@@ -72,7 +108,7 @@ MastodonApi.prototype.listStatuses = function() {
 					setHeaderUserLink.call(mapi, account);
 					setFooterLink.call(mapi, account);
 				}
-				if(data_[i].visibility=='public') {
+				if(true || data_[i].visibility=='public') {
 					// list only public toots
 					appendStatus.call(mapi, data_[i]);
 				}
@@ -118,6 +154,13 @@ MastodonApi.prototype.listStatuses = function() {
 	var appendStatus = function(status_) {
 		//console.log( status_ );
 		var content = $(status_.content);
+
+		if(status_.spoiler_text != "") {
+			// handle spoilers
+			//content.wrap('<div class="spoiler"></div>');
+			content = $('<div class="spoiler-header">'+status_.spoiler_text+'<a class="btn-spoiler" href="#open-spoiler">'+this.text.spoilerBtnClosed+'</a></div>'
+				+'<div class="spoiler-body">'+status_.content+'</div>');
+		}
 
 		var date = prepareDateDisplay(status_.created_at);
 		var timestamp = $("<div class='mt-date'><a href='"+status_.url+"'>" + date + "</a></div>");

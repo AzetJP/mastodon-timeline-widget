@@ -88,6 +88,19 @@
 	margin: 5px;
 	padding: 10px;
 }
+
+/* spoiler === */
+a.btn-spoiler {
+	margin-left: 5px;
+	padding: 3px;
+	background: purple;
+	color: white;
+	border-radius: 3px;
+	font-size: 80%;
+}
+.spoiler-body {
+	display: none;
+}
 /* <<< */
 
 /* light theme >>> */
@@ -119,6 +132,12 @@
 .mastodon-timeline-light .mt-date a {
 	color: lightgrey;
 }
+
+/* spoiler === */
+.mastodon-timeline-light a.btn-spoiler {
+	background: #26afff;
+	color: white;
+}
 /* <<< */
 
 /* dark theme >>> */
@@ -149,5 +168,11 @@
 
 .mastodon-timeline-dark .mt-date a {
 	color: #606984;
+}
+
+/* spoiler === */
+.mastodon-timeline-dark a.btn-spoiler {
+	background: #687390;
+	color: #393F4F;
 }
 /* <<< */
