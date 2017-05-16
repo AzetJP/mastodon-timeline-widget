@@ -18,22 +18,23 @@ To help you create a token, we'll soon provide a page on our website that will g
 
 2) Simply paste the code bellow in you website:
 
-
-	<link rel="stylesheet" href="mastodon.widget.css">
-	<script type="text/javascript" src="mastodon.widget.js"></script>
-	<script>
-		$(document).ready(function() {
-			// jQUERY is required!
-			var mapi = new MastodonApi({
-				target_selector  : '#myTimeline'
-				,instance_uri    : '[MASTODON INSTANCE]'
-				,access_token    : '[ACCESS TOKEN]'
-				,account_id      : '[ACCOUNT ID]'
-				// optional parameters
-				//,toots_limit     : 5
-			});
+```html
+<link rel="stylesheet" href="mastodon.widget.css">
+<script type="text/javascript" src="mastodon.widget.js"></script>
+<script>
+	$(document).ready(function() {
+		// jQUERY is required!
+		var mapi = new MastodonApi({
+			target_selector  : '#myTimeline'
+			,instance_uri    : '[MASTODON INSTANCE]'
+			,access_token    : '[ACCESS TOKEN]'
+			,account_id      : '[ACCOUNT ID]'
+			// optional parameters
+			//,toots_limit     : 5
 		});
-	</script>
+	});
+</script>
+```
 
 In the sample above, you have to replace the folowing:
 
@@ -43,7 +44,9 @@ In the sample above, you have to replace the folowing:
 
 3) Add a container for your timeline where you want in the body of your website:
 
+```html
     <div id="myTimeline" class="mastodon-timeline mastodon-timeline-dark"></div>
+```
 
 ## Customization
 
