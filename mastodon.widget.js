@@ -4,16 +4,16 @@
  * ライセンスに関して、LICENSEファイルを参照下さい。
  * see license file for details.
  *
- * @author Azet <https://azet.jp>
- * @version 1.0
+ * @author Azet <http://www.azet.jp>
+ * @version 1.01
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
- *    access_token    : widget's application access token (can be generated from http://azet.jp/mastodon-usertimeline-widget/)
+ *    access_token    : widget's application access token (can be generated from http://www.azet.jp/mastodon.wizard/wizard_en.html)
  *    account_id      : user account id to fetch messages of
  *    target_selector : HTML node selector (jquery/css style)
+ *    toots_limit     : max toots display count (default 20 like API)
  */
 var MastodonApi = function(params_) {
-	this.build = 2;
 	
 	// endpoint access settings
 	this.INSTANCE_URI  = params_.instance_uri;
@@ -60,11 +60,10 @@ var MastodonApi = function(params_) {
 
 }
 
-/**
- * texts
- */
-MastodonApi.prototype.text = {
-}
+
+/* widget Attributes */
+MastodonApi.build = 2; // later for version comparisons if needed
+MastodonApi.version = "1.01"; // display
 
 
 /**

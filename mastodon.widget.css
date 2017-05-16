@@ -4,8 +4,8 @@
  * ライセンスに関して、LICENSEファイルを参照下さい。
  * see license file for details.
  *
- * @author Azet <https://azet.jp>
- * @version 1.0
+ * @author Azet <http://www.azet.jp>
+ * @version 1.01
  */
 
 /* main container >>> */
@@ -39,6 +39,17 @@
 .mt-body {
 	height: 250px;
 	overflow-y: auto;
+
+	/* force wrap */
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.mt-body .invisible {
+	display: none;
 }
 
 .mt-loading {
@@ -176,3 +187,5 @@ a.btn-spoiler {
 	color: #393F4F;
 }
 /* <<< */
+
+/* vim set foldmethod=marker foldlevel=0 */
