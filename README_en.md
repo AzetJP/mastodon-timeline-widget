@@ -3,7 +3,7 @@
 The idea of this little script is to allow users to display their Mastodon timeline on their blog/website.
 
 You can use our wizard to generate an access token very easily. Simply follow the link below:  
-[Azet.jp's Mastodon Widget Generator](https://azet.jp/mastodon.wizard/wizard_en.html)
+[Azet.jp's Mastodon Widget Wizard](http://www.azet.jp/mastodon.wizard/wizard_en.html)
 
 ## Requirements
 

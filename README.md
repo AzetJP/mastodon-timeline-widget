@@ -10,7 +10,7 @@
  - ステータスに表示したいマストドンのインスタンスのアクセストークン
 
 設定がしやすい用に、ウィザードを作りましたので、よろしければご利用下さい。  
-[Azet.jpのマストドンウィジェットウィザード](https://azet.jp/mastodon.wizard/wizard_jp.html)
+[Azet.jpのマストドンウィジェットウィザード](http://www.azet.jp/mastodon.wizard/wizard_jp.html)
 
 ## 設定
 
