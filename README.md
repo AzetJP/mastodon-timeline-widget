@@ -18,22 +18,23 @@
 
 2) 下記のコードをホームページに入れてください：
 
-
-	<link rel="stylesheet" href="mastodon.widget.css">
-	<script type="text/javascript" src="mastodon.widget.js"></script>
-	<script>
-		$(document).ready(function() {
-			// jQUERY is required!
-			var mapi = new MastodonApi({
-				target_selector  : '#myTimeline'
-				,instance_uri    : '[マストドンのインスタンスURL]'
-				,access_token    : '[アクセストークン]'
-				,account_id      : '[ユーザのアカウントID]'
-				// optional parameters
-				//,toots_limit     : 5
-			});
+```html
+<link rel="stylesheet" href="mastodon.widget.css">
+<script type="text/javascript" src="mastodon.widget.js"></script>
+<script>
+	$(document).ready(function() {
+		// jQUERY is required!
+		var mapi = new MastodonApi({
+			target_selector  : '#myTimeline'
+			,instance_uri    : '[マストドンのインスタンスURL]'
+			,access_token    : '[アクセストークン]'
+			,account_id      : '[ユーザのアカウントID]'
+			// optional parameters
+			//,toots_limit     : 5
 		});
-	</script>
+	});
+</script>
+```
 
 上記のサンプルコードに、下記の情報を正しく設定して下さい：
 
@@ -43,7 +44,9 @@
 
 3) タイムラインの為に、DIVのコンテナを追加して下さい：
 
+```html
     <div id="myTimeline" class="mastodon-timeline mastodon-timeline-dark"></div>
+```
 
 ## カスタマイズ
 
