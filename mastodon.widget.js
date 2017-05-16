@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.02
+ * @version 1.02 (also update MastodonAPI.version below)
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
  *    access_token    : widget's application access token (can be generated from http://www.azet.jp/mastodon.wizard/wizard_en.html)
@@ -62,8 +62,8 @@ var MastodonApi = function(params_) {
 
 
 /* widget Attributes */
-MastodonApi.build = 2; // later for version comparisons if needed
-MastodonApi.version = "1.01"; // display
+MastodonApi.build = 2;        // later for version comparisons if needed
+MastodonApi.version = "1.02"; // display
 
 
 /**
