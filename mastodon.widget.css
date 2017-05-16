@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.01
+ * @version 1.02
  */
 
 /* main container >>> */
@@ -81,6 +81,15 @@
 .mt-date {
 	text-align: right;
 }
+
+.mt-date .nsfw {
+	background: purple;
+	color: white;
+	margin-right: 1em;
+	padding: 0 3px;
+	border-radius: 2px;
+}
+
 
 .mt-avatar {
 	position: absolute;

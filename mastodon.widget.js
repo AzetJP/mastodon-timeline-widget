@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.01
+ * @version 1.02
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
  *    access_token    : widget's application access token (can be generated from http://www.azet.jp/mastodon.wizard/wizard_en.html)
@@ -163,6 +163,10 @@ MastodonApi.prototype.listStatuses = function() {
 
 		var date = prepareDateDisplay(status_.created_at);
 		var timestamp = $("<div class='mt-date'><a href='"+status_.url+"'>" + date + "</a></div>");
+
+		if(status_.sensitive) {
+			timestamp.prepend('<span class="nsfw">NSFW</span>');
+		}
 
 		// status container
 		var toot = $("<div class='mt-toot clearfix'></div>");
