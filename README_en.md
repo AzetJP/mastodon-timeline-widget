@@ -31,6 +31,7 @@ To help you create a token, we'll soon provide a page on our website that will g
 			,account_id      : '[ACCOUNT ID]'
 			// optional parameters
 			//,toots_limit     : 5
+			//,pic_icon        : '<i class="fa fa-picture-o"></i>' // requires http://fontawesome.io
 		});
 	});
 </script>
@@ -48,6 +49,18 @@ In the sample above, you have to replace the folowing:
     <div id="myTimeline" class="mastodon-timeline mastodon-timeline-dark"></div>
 ```
 
+### Available parameters
+
+The parameters below are optional.
+
+| Parameter name | Default   | Explanation |
+|----------------|-----------|-------------|
+| toots_limit    | 20        | maximum number of visible toots |
+| pic_icon       | [picture] | icon to be displayed when medias are attached |
+
+Regarding `pic_icon`, you can use an image you have on your server like so: `<img src="mypicicon.gif" />`.  
+Or you can also use [font-awesome](http://fontawesome.io) and set `<i class="fa fa-picture-o"></i>`.
+
 ## Customization
 
 You have the choice between 2 basic themes:
@@ -56,3 +69,19 @@ You have the choice between 2 basic themes:
  - mastodon-timeline-dark
 
 Or you can create your own. Please have a look in the CSS file for more details.
+
+### Languages supported
+
+In a separate file, you can setup the text to support a different language.  
+For example, in the Japanese file `mastodon.widget-jp.js` we can find the folowing settings:
+
+```javascript
+MastodonApi.text = {
+	spoilerBtnClosed  : "もっと見る"
+	,spoilerBtnOpened : "隠す"
+	,nsfwLabel        : "閲覧注意"
+	,nsfwViewMsg      : "クリックして表示"
+};
+```
+
+Please be sure to insert the translation javascript file `<script>` tag after `mastodon.widget.js`.
