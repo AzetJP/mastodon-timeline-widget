@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.02 (also update MastodonAPI.version below)
+ * @version 1.03 (also update MastodonAPI.version below)
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
  *    access_token    : widget's application access token (can be generated from http://www.azet.jp/mastodon.wizard/wizard_en.html)
@@ -33,6 +33,8 @@ var MastodonApi = function(params_) {
 		spoilerBtnClosed  : "Show more"
 		,spoilerBtnOpened : "Show less"
 	};
+
+	this.picIcon = params_.pic_icon || '[PICTURE]';
 
 	var me = this;
 
@@ -62,8 +64,8 @@ var MastodonApi = function(params_) {
 
 
 /* widget Attributes */
-MastodonApi.build = 2;        // later for version comparisons if needed
-MastodonApi.version = "1.02"; // display
+MastodonApi.build = 3;        // later for version comparisons if needed
+MastodonApi.version = "1.03"; // display
 
 
 /**
@@ -154,6 +156,7 @@ MastodonApi.prototype.listStatuses = function() {
 		//console.log( status_ );
 		var content = $(status_.content);
 
+		// dealing with spoiler content
 		if(status_.spoiler_text != "") {
 			// handle spoilers
 			//content.wrap('<div class="spoiler"></div>');
@@ -164,12 +167,21 @@ MastodonApi.prototype.listStatuses = function() {
 		var date = prepareDateDisplay(status_.created_at);
 		var timestamp = $("<div class='mt-date'><a href='"+status_.url+"'>" + date + "</a></div>");
 
+		// sensitive content
 		if(status_.sensitive) {
 			timestamp.prepend('<span class="nsfw">NSFW</span>');
 		}
 
+		// media attachmets? >>>
+		if(status_.media_attachments.length>0) {
+			for(var picid in status_.media_attachments) {
+				content = this.replaceMedias(content, status_.media_attachments[picid], status_.sensitive);
+			}
+		}
+		// <<<
+
 		// status container
-		var toot = $("<div class='mt-toot clearfix'></div>");
+		var toot = $("<div class='mt-toot'></div>");
 		// avatar
 		var avatar = $("<div class='mt-avatar'></div>");
 		avatar.css({
@@ -209,7 +221,38 @@ MastodonApi.prototype.listStatuses = function() {
 		;
 
 		return displayTime;
-	}
+	};
 
+};
+
+
+/**
+ * replace media (pictures) in text with an icon and appends a preview
+ *
+ * @author Azet
+ * @param jquery_object content
+ * @param object media_ (received with toot's JSON data)
+ * @param bool nsfw_ indicates the media is not to be displayed
+ * @return object modifier content object
+ */
+MastodonApi.prototype.replaceMedias = function(content, media_, nsfw_) {
+	var nsfw = nsfw_ || false;
+
+	if(nsfw) {
+		// pics hidden
+		var pic = '<div class="toot-media-preview" style="background:black;" data-picpreview-url="'+media_.preview_url+'"></div>';
+	}
+	else {
+		// pics visible
+		var pic = '<div class="toot-media-preview" style="background-image:url('+media_.preview_url+');"></div>';
+	}
+	// append pic at end of content
+	content.append(pic);
+
+	// icon in place of link in content
+	var icon = '<a href="'+media_.url+'" target="_blank">'+this.picIcon+'</a>';
+	$('a[href="'+media_.text_url+'"]', content).replaceWith(icon);
+
+	return content;
 };
 

@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.02
+ * @version 1.03
  */
 
 /* main container >>> */
@@ -120,6 +120,24 @@ a.btn-spoiler {
 }
 .spoiler-body {
 	display: none;
+}
+
+/* medias === */
+.toot-media-preview {
+	position: relative;
+	margin-top: 5px;
+	height: 100px;
+	background-size: cover;
+	background-position: center center;
+}
+
+.toot-media-preview a {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 /* <<< */
 
