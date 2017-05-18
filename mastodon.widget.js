@@ -188,14 +188,22 @@ MastodonApi.prototype.listStatuses = function() {
 	 */
 	var appendStatus = function(status_) {
 		//console.log( status_ );
-		var content = $(status_.content);
+		var content;
 
 		// dealing with spoiler content
 		if(status_.spoiler_text != "") {
 			// handle spoilers
 			//content.wrap('<div class="spoiler"></div>');
-			content = $('<div class="spoiler-header">'+status_.spoiler_text+'<a class="btn-spoiler" href="#open-spoiler">'+MastodonApi.text.spoilerBtnClosed+'</a></div>'+
-				'<div class="spoiler-body">'+status_.content+'</div>');
+			content = $(
+				'<div class="spoiler-header">'+status_.spoiler_text+'<a class="btn-spoiler" href="#open-spoiler">'+MastodonApi.text.spoilerBtnClosed+'</a></div>'+
+				'<div class="spoiler-body">'+status_.content+'</div>' +
+				'<div class="toot-medias"></div>'
+			);
+		}
+		else {
+			content = $(status_.content + 
+				'<div class="toot-medias"></div>'
+			);
 		}
 
 		var date = prepareDateDisplay(status_.created_at);
@@ -206,13 +214,6 @@ MastodonApi.prototype.listStatuses = function() {
 			timestamp.prepend('<span class="nsfw">' + MastodonApi.text.nsfwLabel + '</span>');
 		}
 
-		// media attachmets? >>>
-		if(status_.media_attachments.length>0) {
-			for(var picid in status_.media_attachments) {
-				content = this.replaceMedias(content, status_.media_attachments[picid], status_.sensitive);
-			}
-		}
-		// <<<
 
 		// status container
 		var toot = $("<div class='mt-toot'></div>");
@@ -231,6 +232,16 @@ MastodonApi.prototype.listStatuses = function() {
 		toot.append( timestamp );
 		toot.append( content );
 		$('.mt-body', this.widget).append(toot);
+
+		// media attachmets? >>>
+		if(status_.media_attachments.length>0) {
+			var pic;
+			for(var picid in status_.media_attachments) {
+				pic = this.replaceMedias(content, status_.media_attachments[picid], status_.sensitive);
+				toot.append( pic );
+			}
+		}
+		// <<<
 	};
 
 
@@ -272,6 +283,10 @@ MastodonApi.prototype.listStatuses = function() {
 MastodonApi.prototype.replaceMedias = function(content, media_, nsfw_) {
 	var nsfw = nsfw_ || false;
 
+	// icon in place of link in content
+	var icon = '<a href="'+media_.url+'" target="_blank">'+this.picIcon+'</a>';
+	$('a[href="'+media_.text_url+'"]', content).replaceWith(icon);
+
 	if(nsfw) {
 		// pics hidden
 		var pic = '<div class="toot-media-preview toot-media-nsfw" style="background:black;" data-picpreview-url="'+media_.preview_url+'">' +
@@ -282,13 +297,7 @@ MastodonApi.prototype.replaceMedias = function(content, media_, nsfw_) {
 		// pics visible
 		var pic = '<div class="toot-media-preview" style="background-image:url('+media_.preview_url+');"></div>';
 	}
-	// append pic at end of content
-	content.append(pic);
 
-	// icon in place of link in content
-	var icon = '<a href="'+media_.url+'" target="_blank">'+this.picIcon+'</a>';
-	$('a[href="'+media_.text_url+'"]', content).replaceWith(icon);
-
-	return content;
+	return pic;
 };
 
