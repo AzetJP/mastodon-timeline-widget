@@ -129,6 +129,10 @@ a.btn-spoiler {
 	height: 100px;
 	background-size: cover;
 	background-position: center center;
+	box-sizing: border-box;
+	color: white;
+	text-align: center;
+	padding-top: 40px;
 }
 
 .toot-media-preview a {

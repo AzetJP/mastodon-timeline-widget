@@ -13,6 +13,7 @@
  *    target_selector : HTML node selector (jquery/css style)
  *    toots_limit     : max toots display count (default 20 like API)
  */
+
 var MastodonApi = function(params_) {
 	
 	// endpoint access settings
@@ -29,14 +30,9 @@ var MastodonApi = function(params_) {
 	this.makeWidget();
 	this.listStatuses();
 
-	this.text = {
-		spoilerBtnClosed  : "Show more"
-		,spoilerBtnOpened : "Show less"
-	};
-
 	this.picIcon = params_.pic_icon || '[PICTURE]';
 
-	var me = this;
+	var mapi = this;
 
 	// spoiler toggle
 	// jQuery event handler
@@ -45,10 +41,10 @@ var MastodonApi = function(params_) {
 
 		// btn text
 		if( $(this).hasClass('spoiler-opened') ) {
-			$(this).text(me.text.spoilerBtnClosed);
+			$(this).text(MastodonApi.text.spoilerBtnClosed);
 		}
 		else {
-			$(this).text(me.text.spoilerBtnOpened);
+			$(this).text(MastodonApi.text.spoilerBtnOpened);
 		}
 		$(this).toggleClass('spoiler-opened');
 
@@ -57,15 +53,53 @@ var MastodonApi = function(params_) {
 
 	};
 
+
+	// nsfw toggle
+	// jQuery event handler
+	var toggleNsfwMedia = function(e_) {
+		e_.preventDefault();
+
+		if($(this).hasClass('nsfw-opened')) {
+			// hide image ===
+			$(this).css({
+				'background' : 'black'
+			})
+			.text(MastodonApi.text.nsfwViewMsg)
+			.removeClass('nsfw-opened');
+		}
+		else {
+			// display image ===
+			var img = $(this).attr('data-picpreview-url');
+			$(this).css({
+				'background'       : 'url('+img+') center center no-repeat'
+				,'background-size' : 'cover'
+			})
+			.text('')
+			.addClass('nsfw-opened');
+		}
+
+	}
+
+
 	// spoiler buttons events
 	this.widget.on('click', '.btn-spoiler', toggleSpoiler);
 
+	// hidden media display toggle
+	this.widget.on('click', '.toot-media-nsfw', toggleNsfwMedia);
 }
 
 
 /* widget Attributes */
 MastodonApi.build = 3;        // later for version comparisons if needed
 MastodonApi.version = "1.03"; // display
+
+/* texts */
+MastodonApi.text = {
+	spoilerBtnClosed  : "Show more"
+	,spoilerBtnOpened : "Show less"
+	,nsfwLabel        : "NSFW"
+	,nsfwViewMsg      : "Click to view"
+};
 
 
 /**
@@ -160,8 +194,8 @@ MastodonApi.prototype.listStatuses = function() {
 		if(status_.spoiler_text != "") {
 			// handle spoilers
 			//content.wrap('<div class="spoiler"></div>');
-			content = $('<div class="spoiler-header">'+status_.spoiler_text+'<a class="btn-spoiler" href="#open-spoiler">'+this.text.spoilerBtnClosed+'</a></div>'
-				+'<div class="spoiler-body">'+status_.content+'</div>');
+			content = $('<div class="spoiler-header">'+status_.spoiler_text+'<a class="btn-spoiler" href="#open-spoiler">'+MastodonApi.text.spoilerBtnClosed+'</a></div>'+
+				'<div class="spoiler-body">'+status_.content+'</div>');
 		}
 
 		var date = prepareDateDisplay(status_.created_at);
@@ -169,7 +203,7 @@ MastodonApi.prototype.listStatuses = function() {
 
 		// sensitive content
 		if(status_.sensitive) {
-			timestamp.prepend('<span class="nsfw">NSFW</span>');
+			timestamp.prepend('<span class="nsfw">' + MastodonApi.text.nsfwLabel + '</span>');
 		}
 
 		// media attachmets? >>>
@@ -240,7 +274,9 @@ MastodonApi.prototype.replaceMedias = function(content, media_, nsfw_) {
 
 	if(nsfw) {
 		// pics hidden
-		var pic = '<div class="toot-media-preview" style="background:black;" data-picpreview-url="'+media_.preview_url+'"></div>';
+		var pic = '<div class="toot-media-preview toot-media-nsfw" style="background:black;" data-picpreview-url="'+media_.preview_url+'">' +
+			MastodonApi.text.nsfwViewMsg +
+			'</div>';
 	}
 	else {
 		// pics visible
