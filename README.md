@@ -14,7 +14,7 @@
 
 ## 設定
 
-1) 必要なファイルをダウンロードをして下さい(CSSファイルとJSファイルは1つずつ).
+1) 必要なファイルをダウンロードをして下さい(CSSファイルとJSファイル).
 
 2) 下記のコードをホームページに入れてください：
 
@@ -26,13 +26,16 @@
 	$(document).ready(function() {
 		// jQUERY is required!
 		var mapi = new MastodonApi({
-			target_selector  : '#myTimeline'
-			,instance_uri    : '[マストドンのインスタンスURL]'
-			,access_token    : '[アクセストークン]'
-			,account_id      : '[ユーザのアカウントID]'
-			// optional parameters
-			//,toots_limit     : 5
-			//,pic_icon        : '<i class="fa fa-picture-o"></i>' // http://fontawesome.io利用
+			target_selector          : '#myTimeline'
+			,instance_uri            : '[マストドンのインスタンスURL]'
+			,access_token            : '[アクセストークン]'
+			,account_id              : '[ユーザのアカウントID]'
+			// === optional parameters ===
+			//,toots_limit           : 5
+			// 下記のサンプルはhttp://fontawesome.io使用
+			//,pic_icon              : '<i class="fa fa-picture-o"></i>' 
+			//,boosts_count_icon     : '<i class="fa fa-retweet"></i>'
+			//,favourites_count_icon : '<i class="fa fa-star"></i>'
 		});
 	});
 </script>
@@ -50,17 +53,22 @@
     <div id="myTimeline" class="mastodon-timeline mastodon-timeline-dark"></div>
 ```
 
+`mastodon-timeline-dark` の代わりに、 `mastodon-timeline-light` のテーマも用意しております。
+
 ### パラメータ一覧
 
 下記のパラメータが任意です。
 
-| パラメータ名 | 規定      | 説明 |
-|--------------|-----------|---|
-| toots_limit  | 20        | 最大トゥーツ表示数 |
-| pic_icon     | [picture] | 画像のアイコン |
+| パラメータ名          | 規定         | 説明 |
+|---                    |---           |---   |
+| toots_limit           | 20           | 最大トゥーツ表示数 |
+| pic_icon              | [picture]    | 画像のアイコン |
+| boosts_count_icon     | [boosts]     | ブースト数のステータスタイトル|
+| favourites_count_icon | [favourites] | お気に入り数のステータスタイトル|
 
 `pic_icon` の場合は、`<img src="mypicicon.gif" />` のような設定ができます。  
-[font-awesome](http://fontawesome.io)をご利用の方は`<i class="fa fa-picture-o"></i>` を設定もできます。
+[font-awesome](http://fontawesome.io)をご利用の方は`<i class="fa fa-picture-o"></i>` を設定もできます。  
+同じく、 `boosts_count_icon` と `favourites_count_icon` の設定もできます。
 
 ## カスタマイズ
 

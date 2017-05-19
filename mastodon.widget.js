@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.03 (also update MastodonAPI.version below)
+ * @version 1.04 (also update MastodonAPI.version below)
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
  *    access_token    : widget's application access token (can be generated from http://www.azet.jp/mastodon.wizard/wizard_en.html)
@@ -14,14 +14,18 @@
  *    toots_limit     : max toots display count (default 20 like API)
  */
 
+/* constructor >>> */
 var MastodonApi = function(params_) {
 	
 	// endpoint access settings
-	this.INSTANCE_URI  = params_.instance_uri;
-	this.ACCESS_TOKEN  = params_.access_token;
-	this.ACCOUNT_ID    = params_.account_id;
+	this.INSTANCE_URI        = params_.instance_uri;
+	this.ACCESS_TOKEN        = params_.access_token;
+	this.ACCOUNT_ID          = params_.account_id;
 	// optional parameters
-	this.toots_limit   = params_.toots_limit || 20;
+	this.toots_limit         = params_.toots_limit || 20;
+	this.picIcon             = params_.pic_icon || '[PICTURE]';
+	this.boostsCountIcon     = params_.boosts_count_icon || '[Boosts]';
+	this.favouritesCountIcon = params_.favourites_count_icon || '[Favourites]';
 
 	// display target element
 	this.widget = $(params_.target_selector);
@@ -29,10 +33,6 @@ var MastodonApi = function(params_) {
 	// build the basic widget
 	this.makeWidget();
 	this.listStatuses();
-
-	this.picIcon = params_.pic_icon || '[PICTURE]';
-
-	var mapi = this;
 
 	// spoiler toggle
 	// jQuery event handler
@@ -87,19 +87,23 @@ var MastodonApi = function(params_) {
 	// hidden media display toggle
 	this.widget.on('click', '.toot-media-nsfw', toggleNsfwMedia);
 }
+/* <<< end constructor */
 
 
-/* widget Attributes */
-MastodonApi.build = 3;        // later for version comparisons if needed
-MastodonApi.version = "1.03"; // display
+/* widget Attributes >>> */
+MastodonApi.build = 4;        // later for version comparisons if needed
+MastodonApi.version = "1.04"; // display
+/* <<< */
 
-/* texts */
+
+/* texts >>> */
 MastodonApi.text = {
 	spoilerBtnClosed  : "Show more"
 	,spoilerBtnOpened : "Show less"
 	,nsfwLabel        : "NSFW"
 	,nsfwViewMsg      : "Click to view"
 };
+/* <<< */
 
 
 /**
@@ -241,6 +245,20 @@ MastodonApi.prototype.listStatuses = function() {
 				toot.append( pic );
 			}
 		}
+		// <<<
+
+		// stats (boosts + favourites counts) >>>
+		// data
+		var boostsCountIcon     = '<span class="toot-status-boosts">'     + this.boostsCountIcon     +":"+ status_.reblogs_count    + '</span>';
+		var favouritesCountIcon = '<span class="toot-status-favourites">' + this.favouritesCountIcon +":"+ status_.favourites_count + '</span>';
+
+		// html nodes
+		var statusBar = $('<div class="toot-status">' +
+			boostsCountIcon +
+			favouritesCountIcon +
+			'</div>');
+
+		toot.append( statusBar );
 		// <<<
 	};
 

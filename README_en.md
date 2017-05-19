@@ -14,7 +14,7 @@ To help you create a token, we'll soon provide a page on our website that will g
 
 ## Installation
 
-1) Download the required files (only one JS and one CSS).
+1) Download the required files (JS and CSS files in the archive).
 
 2) Simply paste the code bellow in you website:
 
@@ -25,13 +25,16 @@ To help you create a token, we'll soon provide a page on our website that will g
 	$(document).ready(function() {
 		// jQUERY is required!
 		var mapi = new MastodonApi({
-			target_selector  : '#myTimeline'
-			,instance_uri    : '[MASTODON INSTANCE]'
-			,access_token    : '[ACCESS TOKEN]'
-			,account_id      : '[ACCOUNT ID]'
-			// optional parameters
-			//,toots_limit     : 5
-			//,pic_icon        : '<i class="fa fa-picture-o"></i>' // requires http://fontawesome.io
+			target_selector          : '#myTimeline'
+			,instance_uri            : '[MASTODON INSTANCE]'
+			,access_token            : '[ACCESS TOKEN]'
+			,account_id              : '[ACCOUNT ID]'
+			// === optional parameters ===
+			//,toots_limit           : 5
+			// samples below require http://fontawesome.io
+			//,pic_icon              : '<i class="fa fa-picture-o"></i>'
+			//,boosts_count_icon     : '<i class="fa fa-retweet"></i>'
+			//,favourites_count_icon : '<i class="fa fa-star"></i>'
 		});
 	});
 </script>
@@ -49,17 +52,22 @@ In the sample above, you have to replace the folowing:
     <div id="myTimeline" class="mastodon-timeline mastodon-timeline-dark"></div>
 ```
 
+Instead of the theme `mastodon-timeline-dark`, we provide a light theme `mastodon-timeline-light` as well.
+
 ### Available parameters
 
 The parameters below are optional.
 
-| Parameter name | Default   | Explanation |
-|----------------|-----------|-------------|
-| toots_limit    | 20        | maximum number of visible toots |
-| pic_icon       | [picture] | icon to be displayed when medias are attached |
+| Parameter name        | Default      | Explanation |
+|---                    |----          |---          |
+| toots_limit           | 20           | maximum number of visible toots |
+| pic_icon              | [picture]    | icon to be displayed when medias are attached |
+| boosts_count_icon     | [boosts]     | boosts count status header entry |
+| favourites_count_icon | [favourites] | favourites count status header entry |
 
 Regarding `pic_icon`, you can use an image you have on your server like so: `<img src="mypicicon.gif" />`.  
-Or you can also use [font-awesome](http://fontawesome.io) and set `<i class="fa fa-picture-o"></i>`.
+Or you can also use [font-awesome](http://fontawesome.io) and set `<i class="fa fa-picture-o"></i>`.  
+Same goes for `boosts_count_icon` and `favourites_count_icon`.
 
 ## Customization
 

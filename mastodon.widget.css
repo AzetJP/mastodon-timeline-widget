@@ -143,6 +143,20 @@ a.btn-spoiler {
 	bottom: 0;
 	left: 0;
 }
+
+/* toots status === */
+.toot-status {
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+.toot-status .toot-status-boosts,
+.toot-status .toot-status-favourites {
+	display: inline-block;
+	white-space: nowrap;
+	margin-right: 10px;
+}
+
 /* <<< */
 
 /* light theme >>> */
@@ -171,8 +185,9 @@ a.btn-spoiler {
 	border-top-color:  lightgrey;
 }
 
+.mastodon-timeline-light .toot-status,
 .mastodon-timeline-light .mt-date a {
-	color: lightgrey;
+	color: #aaa;
 }
 
 /* spoiler === */
@@ -208,6 +223,7 @@ a.btn-spoiler {
 	border-top-color: #606984;
 }
 
+.mastodon-timeline-dark .toot-status,
 .mastodon-timeline-dark .mt-date a {
 	color: #606984;
 }
