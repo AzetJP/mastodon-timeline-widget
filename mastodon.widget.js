@@ -147,7 +147,7 @@ MastodonApi.prototype.listStatuses = function() {
 					setHeaderUserLink.call(mapi, account);
 					setFooterLink.call(mapi, account);
 				}
-				if(true || data_[i].visibility=='public') {
+				if(data_[i].visibility=='public') {
 					// list only public toots
 					appendStatus.call(mapi, data_[i]);
 				}
