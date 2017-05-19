@@ -2,15 +2,13 @@
 
 The idea of this little script is to allow users to display their Mastodon timeline on their blog/website.
 
-You can use our wizard to generate an access token very easily. Simply follow the link below:  
-[Azet.jp's Mastodon Widget Wizard](http://www.azet.jp/mastodon.wizard/wizard_en.html)
-
 ## Requirements
 
  - jQuery
  - access token from the mastodon instance you want to display the timeline from
 
-To help you create a token, we'll soon provide a page on our website that will guide you through the requiered steps.
+You can use our wizard to generate an access token very easily. Simply follow the link below:  
+[Azet.jp's Mastodon Widget Wizard](http://www.azet.jp/mastodon.wizard/wizard_en.html)
 
 ## Installation
 
