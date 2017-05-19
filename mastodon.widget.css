@@ -39,6 +39,7 @@
 .mt-body {
 	height: 250px;
 	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 
 	/* force wrap */
     white-space: pre-wrap; /* css-3 */
@@ -155,6 +156,24 @@ a.btn-spoiler {
 	display: inline-block;
 	white-space: nowrap;
 	margin-right: 10px;
+}
+
+/* medias display === */
+.toot-media-filter {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.9);
+}
+
+.toot-media-zoom {
+	position: fixed;
+	top: 5%;
+	right: 5%;
+	bottom: 5%;
+	left: 5%;
 }
 
 /* <<< */

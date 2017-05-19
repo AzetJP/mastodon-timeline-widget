@@ -81,11 +81,41 @@ var MastodonApi = function(params_) {
 	}
 
 
+	/**
+	 * toggle the display of pictures in a modal-ish fashion
+	 *
+	 * @author Azet
+	 * @param jquery_event e_
+	 */
+	var toggleMedia = function(e_) {
+		e_.preventDefault();
+
+		var link = $(this).attr('href');
+		var filter = makeFilter();
+		var pic = $('<div class="toot-media-zoom" style="background: url('+link+') 50% 50% no-repeat; background-size: contain;"></div>');
+		filter.append(pic);
+	};
+
+
+	var makeFilter = function() {
+		var filter = $('<div class="toot-media-filter"></div>');
+		filter.click(function(e_) {
+			e_.preventDefault();
+			$(this).remove();
+		});
+		$('body').append(filter);
+		return filter;
+	}
+
+
 	// spoiler buttons events
 	this.widget.on('click', '.btn-spoiler', toggleSpoiler);
 
 	// hidden media display toggle
 	this.widget.on('click', '.toot-media-nsfw', toggleNsfwMedia);
+
+	// clicks on media icon links
+	this.widget.on('click', '.toot-media-link', toggleMedia);
 }
 /* <<< end constructor */
 
@@ -302,7 +332,7 @@ MastodonApi.prototype.replaceMedias = function(content, media_, nsfw_) {
 	var nsfw = nsfw_ || false;
 
 	// icon in place of link in content
-	var icon = '<a href="'+media_.url+'" target="_blank">'+this.picIcon+'</a>';
+	var icon = '<a href="'+media_.url+'" class="toot-media-link" target="_blank">'+this.picIcon+'</a>';
 	$('a[href="'+media_.text_url+'"]', content).replaceWith(icon);
 
 	if(nsfw) {
