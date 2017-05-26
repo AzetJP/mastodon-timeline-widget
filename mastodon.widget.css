@@ -8,10 +8,13 @@
  * @version 1.05
  */
 
+/* load Noto Sans Japanese web font */
+@import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
 /* main container >>> */
 .mastodon-timeline {
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-	font-family: sans-serif;
+	font-family: 'Noto Sans Japanese', sans-serif;
 	margin-bottom: 1em;
 }
 
