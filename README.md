@@ -72,12 +72,24 @@
 
 ## カスタマイズ
 
+### テーマ
+
 以下の2つのテーマが用意されております：
 
  - mastodon-timeline-light
  - mastodon-timeline-dark
 
 又は、オリジナルテーマ作成も可能です。詳しくはCSSファイルを参照下さい。
+
+### フォント
+
+他のフォントを使いたい方にはGoogleの`Noto Sans Japanese`フォントを準備させて頂きました。  
+下記のHTMLを追加して下さい：(`HEAD`タグの中に、`mastodon.widget.css`の前に)
+
+```html
+<!-- Noto Sans Japanese -->
+<link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/notosansjapanese.css">
+```
 
 ### 言語サポート
 
