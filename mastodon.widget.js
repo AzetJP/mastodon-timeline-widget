@@ -184,7 +184,7 @@ MastodonApi.prototype.listStatuses = function() {
 			}
 
 			// fix content link target
-			$('a', this.widget).attr('target', '_blank');
+			$('a', mapi.widget).attr('target', '_blank');
 		}
 		,error: function(d_) {
 			//console.log( d_ );
