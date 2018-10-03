@@ -103,6 +103,18 @@
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
+.mt-avatar-boosted {
+	width: 40px;
+	height: 40px;
+}
+
+.mt-avatar-booster {
+	width: 25px;
+	height: 25px;
+	top: 25px;
+	left: 25px;
+}
+
 .mt-error {
 	color: darkred;
 	background: lightpink;

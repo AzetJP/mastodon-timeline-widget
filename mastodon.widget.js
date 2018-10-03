@@ -5,7 +5,7 @@
  * see license file for details.
  *
  * @author Azet <http://www.azet.jp>
- * @version 1.06 (also update MastodonAPI.version below)
+ * @version 1.07 (also update MastodonAPI.version below)
  * @param object params_
  *    instance_uri    : the instance to fetch messages from
  *    access_token    : widget's application access token (can be generated from http://www.azet.jp/mastodon.wizard/wizard_en.html)
@@ -24,8 +24,8 @@ var MastodonApi = function(params_) {
 	// optional parameters
 	this.toots_limit         = params_.toots_limit || 20;
 	this.picIcon             = params_.pic_icon || '[PICTURE]';
-	this.boostsCountIcon     = params_.boosts_count_icon || '[Boosts]';
-	this.favouritesCountIcon = params_.favourites_count_icon || '[Favourites]';
+	this.boostsCountIcon     = params_.boosts_count_icon || '[Boost]';
+	this.favouritesCountIcon = params_.favourites_count_icon || '[Favourite]';
 
 	// display target element
 	this.widget = $(params_.target_selector);
@@ -121,8 +121,8 @@ var MastodonApi = function(params_) {
 
 
 /* widget Attributes >>> */
-MastodonApi.build = 6;        // later for version comparisons if needed
-MastodonApi.version = "1.06"; // display
+MastodonApi.build = 7;        // later for version comparisons if needed
+MastodonApi.version = "1.07"; // display
 /* <<< */
 
 
@@ -223,6 +223,7 @@ MastodonApi.prototype.listStatuses = function() {
 	var appendStatus = function(status_) {
 		//console.log( status_ );
 		var content;
+		var date, url, avatar, user;
 
 		// dealing with spoiler content
 		if(status_.spoiler_text != "") {
@@ -230,44 +231,76 @@ MastodonApi.prototype.listStatuses = function() {
 			//content.wrap('<div class="spoiler"></div>');
 			content = $(
 				'<div class="spoiler-header">'+status_.spoiler_text+'<a class="btn-spoiler" href="#open-spoiler">'+MastodonApi.text.spoilerBtnClosed+'</a></div>'+
-				'<div class="spoiler-body">'+status_.content+'</div>' +
+				'<div class="spoiler-body toot-text">'+status_.content+'</div>' +
 				'<div class="toot-medias"></div>'
 			);
 		}
 		else {
-			content = $(status_.content + 
-				'<div class="toot-medias"></div>'
-			);
+			content = $("<div class='toot-text'>" + status_.content + "</div>" + "<div class='toot-medias'></div>");
 		}
 
-		var date = prepareDateDisplay(status_.created_at);
-		var timestamp = $("<div class='mt-date'><a href='"+status_.url+"'>" + date + "</a></div>");
+		if(status_.reblog) {
+			// data from BOOSTED status
+
+			// toot date
+			date = prepareDateDisplay(status_.reblog.created_at);
+
+			// toot url
+			url = status_.reblog.url;
+
+			// boosted avatar
+			avatar = $("<div class='mt-avatar mt-avatar-boosted'></div>");
+			avatar.css(makeAvatarCss(status_.reblog.account.avatar));
+
+			// booster avatar
+			var boosterAvatar = $("<div class='mt-avatar mt-avatar-booster'></div>");
+			boosterAvatar.css(makeAvatarCss(status_.account.avatar));
+			avatar.append(boosterAvatar);
+
+			// user name and url
+			user = $("<div class='mt-user'><a href='"+status_.reblog.account.url+"'>"+status_.reblog.account.username+"</a></div>");
+		}
+		else {
+			// data from status
+
+			// toot date
+			date = prepareDateDisplay(status_.created_at);
+
+			// toot url
+			url = status_.url;
+
+			// avatar
+			avatar = $("<div class='mt-avatar'></div>");
+			avatar.css(makeAvatarCss(status_.account.avatar));
+
+			// user name and url
+			user = $("<div class='mt-user'><a href='"+status_.account.url+"'>"+status_.account.username+"</a></div>");
+		}
+
+		// format date
+		var timestamp = $("<div class='mt-date'><a href='"+url+"'>" + date + "</a></div>");
 
 		// sensitive content
 		if(status_.sensitive) {
 			timestamp.prepend('<span class="nsfw">' + MastodonApi.text.nsfwLabel + '</span>');
 		}
 
-
 		// status container
 		var toot = $("<div class='mt-toot'></div>");
-		// avatar
-		var avatar = $("<div class='mt-avatar'></div>");
-		avatar.css({
-			'background' : "white url('"+status_.account.avatar+"') 50% 50% no-repeat"
-			,'background-size' : 'contain'
-		});
-		// user name and url
-		var user = $("<div class='mt-user'><a href='"+status_.account.url+"'>"+status_.account.username+"</a></div>");
 
 		// add to HTML
+
+		if(status_.reblog) {
+			toot.append("<div class='toot-retoot'>"+ this.boostsCountIcon +"</div>");
+		}
+
 		toot.append( avatar );
 		toot.append( user );
 		toot.append( timestamp );
 		toot.append( content );
 		$('.mt-body', this.widget).append(toot);
 
-		// media attachmets? >>>
+		// media attachments? >>>
 		if(status_.media_attachments.length>0) {
 			var pic;
 			for(var picid in status_.media_attachments) {
@@ -314,6 +347,19 @@ MastodonApi.prototype.listStatuses = function() {
 		;
 
 		return displayTime;
+	};
+
+
+	/**
+	 * simple method that sets CSS attributes for the avatar
+	 * @param string avatar_ url of the avatar picture to apply
+	 * @return object css properties to apply with jQuery.css method
+	 */
+	var makeAvatarCss = function(avatar_) {
+		return {
+			'background' : "white url('"+avatar_+"') 50% 50% no-repeat"
+			,'background-size' : 'contain'
+		};
 	};
 
 };

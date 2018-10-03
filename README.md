@@ -63,8 +63,8 @@
 |---                    |---           |---   |
 | toots_limit           | 20           | 最大トゥーツ表示数 |
 | pic_icon              | [picture]    | 画像のアイコン |
-| boosts_count_icon     | [boosts]     | ブースト数のステータスタイトル|
-| favourites_count_icon | [favourites] | お気に入り数のステータスタイトル|
+| boosts_count_icon     | [boost]      | ブースト数のステータスタイトル|
+| favourites_count_icon | [favourite]  | お気に入り数のステータスタイトル|
 
 `pic_icon` の場合は、`<img src="mypicicon.gif" />` のような設定ができます。  
 [font-awesome](http://fontawesome.io)をご利用の方は`<i class="fa fa-picture-o"></i>` を設定もできます。  

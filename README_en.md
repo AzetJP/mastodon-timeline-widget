@@ -60,8 +60,8 @@ The parameters below are optional.
 |---                    |----          |---          |
 | toots_limit           | 20           | maximum number of visible toots |
 | pic_icon              | [picture]    | icon to be displayed when medias are attached |
-| boosts_count_icon     | [boosts]     | boosts count status header entry |
-| favourites_count_icon | [favourites] | favourites count status header entry |
+| boosts_count_icon     | [boost]      | boosts count status header entry |
+| favourites_count_icon | [favourite]  | favourites count status header entry |
 
 Regarding `pic_icon`, you can use an image you have on your server like so: `<img src="mypicicon.gif" />`.  
 Or you can also use [font-awesome](http://fontawesome.io) and set `<i class="fa fa-picture-o"></i>`.  
