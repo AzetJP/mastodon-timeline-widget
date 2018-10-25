@@ -16,7 +16,7 @@
 
 /* constructor >>> */
 var MastodonApi = function(params_) {
-	
+
 	// endpoint access settings
 	this.INSTANCE_URI        = params_.instance_uri;
 	this.ACCESS_TOKEN        = params_.access_token;
@@ -132,6 +132,11 @@ MastodonApi.text = {
 	,spoilerBtnOpened : "Show less"
 	,nsfwLabel        : "NSFW"
 	,nsfwViewMsg      : "Click to view"
+	,title						: "Toots"
+	,byAuthor					: "by"
+	,loading					: "loading..."
+	,error 						: "ERROR"
+	,viewOn						: "View on"
 };
 /* <<< */
 
@@ -141,8 +146,8 @@ MastodonApi.text = {
  */
 MastodonApi.prototype.makeWidget = function() {
 	this.widget.addClass('mastodon-timeline');
-	this.widget.append($('<div class="mt-header"><h4>Toots</h4> by <span class="user-link"></span></div>'));
-	this.widget.append($('<div class="mt-body"><div class="mt-loading">loading...</div></div>'));
+	this.widget.append($('<div class="mt-header"><h4>'+MastodonApi.text.title+'</h4> '+MastodonApi.text.byAuthor+' <span class="user-link"></span></div>'));
+	this.widget.append($('<div class="mt-body"><div class="mt-loading">'+MastodonApi.text.loading+'</div></div>'));
 	this.widget.append($('<div class="mt-footer"></div>'));
 };
 
@@ -189,7 +194,7 @@ MastodonApi.prototype.listStatuses = function() {
 		,error: function(d_) {
 			//console.log( d_ );
 			if(d_.responseJSON) {
-				$('.mt-header', mapi.widget).html('ERROR');
+				$('.mt-header', mapi.widget).html(MastodonApi.text.error);
 				$('.mt-body', mapi.widget).html( '<div class="mt-error">' + d_.responseJSON.error + '</div>');
 			}
 		}
@@ -212,7 +217,7 @@ MastodonApi.prototype.listStatuses = function() {
 	 */
 	var setFooterLink = function(account_) {
 		var domain = this.INSTANCE_URI.replace(/https?:\/\//, '');
-		$('.mt-footer', this.widget).append("View on <a href='"+account_.url+"'>"+domain+"</a>");
+		$('.mt-footer', this.widget).append(MastodonApi.text.viewOn+" <a href='"+account_.url+"'>"+domain+"</a>");
 	};
 
 
@@ -394,4 +399,3 @@ MastodonApi.prototype.replaceMedias = function(content, media_, nsfw_) {
 
 	return pic;
 };
-
