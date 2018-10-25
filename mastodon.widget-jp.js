@@ -16,4 +16,9 @@ MastodonApi.text = {
 	,spoilerBtnOpened : "隠す"
 	,nsfwLabel        : "閲覧注意"
 	,nsfwViewMsg      : "クリックして表示"
+	,title						: "Toots"				// TODO : translate
+	,byAuthor					: "by"					// TODO : translate
+	,loading					: "loading..."	// TODO : translate
+	,error 						: "ERROR"				// TODO : translate
+	,viewOn						: "View on"			// TODO : translate
 };
